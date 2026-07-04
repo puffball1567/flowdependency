@@ -47,6 +47,8 @@ type
     waitPolicy*: WaitPolicy
     required*: bool
     quorum*: Natural
+    weight*: float
+    durationMillis*: Natural
     variantId*: string
     metadata*: seq[KeyValue]
 
@@ -61,6 +63,25 @@ type
     ready*: bool
     reason*: string
     waitingOn*: seq[string]
+
+  GraphDiff* = object
+    addedNodes*: seq[string]
+    removedNodes*: seq[string]
+    changedNodes*: seq[string]
+    addedEdges*: seq[string]
+    removedEdges*: seq[string]
+    changedEdges*: seq[string]
+
+  VariantComparison* = object
+    baseVariant*: string
+    targetVariant*: string
+    diff*: GraphDiff
+
+  CriticalPath* = object
+    nodeIds*: seq[string]
+    edgeIds*: seq[string]
+    totalWeight*: float
+    totalDurationMillis*: Natural
 
 proc kv*(key, value: string): KeyValue =
   KeyValue(key: key, value: value)
@@ -77,6 +98,7 @@ proc flowNode*(id: string; label = ""; kind = nkTask; variantId = "";
 
 proc flowEdge*(id, fromNode, toNode: string; kind = ekDependsOn;
     waitPolicy = wpRequired; required = true; quorum: Natural = 0;
+    weight = 1.0; durationMillis: Natural = 0;
     variantId = ""; metadata: openArray[KeyValue] = []): FlowEdge =
   FlowEdge(
     id: id,
@@ -86,6 +108,8 @@ proc flowEdge*(id, fromNode, toNode: string; kind = ekDependsOn;
     waitPolicy: waitPolicy,
     required: required,
     quorum: quorum,
+    weight: weight,
+    durationMillis: durationMillis,
     variantId: variantId,
     metadata: @metadata
   )

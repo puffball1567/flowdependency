@@ -7,9 +7,11 @@ FlowDependency is designed around public, general software engineering concepts:
 - dependency readiness checks
 - topological ordering
 - cycle detection
+- graph diff
+- longest-path analysis in a directed acyclic graph
 - optional and required dependencies
 - quorum-style readiness
-- JSON and Mermaid export
+- JSON, Mermaid, and Graphviz DOT export
 
 The implementation is intentionally original and small. It does not copy code,
 data structures, DSL syntax, or internal behavior from Nextflow, Airflow,

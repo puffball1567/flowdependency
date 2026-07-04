@@ -1,3 +1,6 @@
+import ./flowdependency/analysis
+import ./flowdependency/diff
+import ./flowdependency/dot
 import ./flowdependency/graph
 import ./flowdependency/jsonio
 import ./flowdependency/mermaid
@@ -5,6 +8,9 @@ import ./flowdependency/ready
 import ./flowdependency/types
 import ./flowdependency/validation
 
+export analysis
+export diff
+export dot
 export graph
 export jsonio
 export mermaid
