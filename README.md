@@ -14,9 +14,14 @@ Early prototype. The current version provides:
 - ready-node decisions with explicit reasons
 - topological ordering
 - cycle detection
+- graph diff
+- variant comparison
+- weighted critical path analysis
 - variant filtering for A/B/C-style flow plans
 - JSON import/export
 - Mermaid flowchart export
+- Graphviz DOT export
+- basic large-graph benchmark
 - focused tests for graph validation, readiness, variants, JSON, and diagrams
 
 ## Scope
@@ -69,12 +74,21 @@ Variants let callers compare alternative flow plans:
 
 ```nim
 let variantA = graph.activeVariant("A")
+let comparison = graph.compareVariants("A", "B")
 ```
 
-Mermaid export can be used to render the graph for humans:
+Critical path analysis can use edge durations or weights:
+
+```nim
+graph.addEdge(flowEdge("extract-load", "extract", "load", durationMillis = 320))
+let path = graph.criticalPath()
+```
+
+Mermaid and DOT export can be used to render the graph for humans:
 
 ```nim
 echo graph.toMermaid()
+echo graph.toDot()
 ```
 
 ## Requirements
@@ -86,6 +100,7 @@ FlowDependency only depends on Nim's standard library.
 ```bash
 nimble test
 nimble examples
+nimble bench
 ```
 
 ## Intellectual Property Notes

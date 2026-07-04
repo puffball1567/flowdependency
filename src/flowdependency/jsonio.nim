@@ -51,6 +51,11 @@ proc getNaturalField(node: JsonNode; key: string; default = 0): Natural =
     raise newException(ValueError, key & " must not be negative")
   Natural(value)
 
+proc getFloatField(node: JsonNode; key: string; default = 0.0): float =
+  if node.hasKey(key):
+    return node[key].getFloat()
+  default
+
 proc getArrayField(node: JsonNode; key: string): seq[JsonNode] =
   if not node.hasKey(key):
     return @[]
@@ -98,6 +103,8 @@ proc toJson*(value: FlowEdge): JsonNode =
   result["waitPolicy"] = %($value.waitPolicy)
   result["required"] = %value.required
   result["quorum"] = %int(value.quorum)
+  result["weight"] = %value.weight
+  result["durationMillis"] = %int(value.durationMillis)
   result["variantId"] = %value.variantId
   result["metadata"] = newJArray()
   for item in value.metadata:
@@ -115,6 +122,8 @@ proc flowEdgeFromJson*(node: JsonNode): FlowEdge =
     waitPolicy = waitPolicyFromString(node.getStringField("waitPolicy", "wpRequired")),
     required = node.getBoolField("required", true),
     quorum = node.getNaturalField("quorum"),
+    weight = node.getFloatField("weight", 1.0),
+    durationMillis = node.getNaturalField("durationMillis"),
     variantId = node.getStringField("variantId"),
     metadata = metadata
   )

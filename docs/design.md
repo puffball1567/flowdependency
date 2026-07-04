@@ -9,6 +9,8 @@ FlowDependency models the structure of a flow.
 - Decide whether a node is ready from external status information.
 - Detect invalid graphs and cycles early.
 - Support variant-specific graph views for A/B/C plan comparison.
+- Compare graphs and variants.
+- Compute a weighted critical path.
 - Export JSON for machines and Mermaid for humans.
 
 ## Non-goals
@@ -35,6 +37,8 @@ FlowEdge
   waitPolicy
   required
   quorum
+  weight
+  durationMillis
   variantId
 ```
 
@@ -65,3 +69,16 @@ happened. FlowSurveyor can later combine both:
 ```text
 FlowDependency graph + FlowLogbook events -> critical path and bottleneck analysis
 ```
+
+FlowDependency does not import FlowLogbook. Callers can map event `nodeId` and
+`edgeId` values to graph ids or store those ids in edge metadata. This keeps the
+model reusable outside FlowLogbook while still making the integration simple.
+
+## Analysis
+
+Critical path analysis uses `durationMillis` when present. If duration is absent,
+it falls back to `weight`. This lets callers start with rough weights and later
+replace them with observed durations from FlowLogbook or another metrics source.
+
+Graph diff compares node and edge ids first, then reports changed records when
+labels, kinds, wait policies, weights, durations, variants, or metadata differ.
