@@ -7,7 +7,8 @@ It is part of the **FlowBrigade Toolkit**.
 
 ## Status
 
-Early prototype. The current version provides:
+FlowDependency v0.2.0 is focused on dependency graph modeling and human-readable
+graph export. Within that scope, the current version provides:
 
 - node and edge graph primitives
 - required, optional, all, any, and quorum wait policies
@@ -32,8 +33,8 @@ history, collect metrics, or schedule containers.
 Those responsibilities belong to other FlowBrigade Toolkit components:
 
 - FlowLogbook records runs and flow events.
-- FlowWorkRunner will execute ready nodes.
-- FlowSurveyor will analyze graph and logbook data.
+- FlowWorkRunner executes ready nodes.
+- FlowSurveyor analyzes graph and logbook data.
 - FlowCaptain will coordinate replaceable components.
 
 ## Example
