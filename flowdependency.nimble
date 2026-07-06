@@ -1,4 +1,4 @@
-version       = "0.2.0"
+version       = "0.3.0"
 author        = "flowdependency contributors"
 description   = "Dependency graph primitives for FlowBrigade Toolkit flows."
 license       = "Apache-2.0"
