@@ -4,6 +4,7 @@ import ./flowdependency/dot
 import ./flowdependency/graph
 import ./flowdependency/jsonio
 import ./flowdependency/mermaid
+import ./flowdependency/metrics
 import ./flowdependency/ready
 import ./flowdependency/types
 import ./flowdependency/validation
@@ -14,6 +15,7 @@ export dot
 export graph
 export jsonio
 export mermaid
+export metrics
 export ready
 export types
 export validation

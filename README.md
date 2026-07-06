@@ -7,8 +7,9 @@ It is part of the **FlowBrigade Toolkit**.
 
 ## Status
 
-FlowDependency v0.2.0 is focused on dependency graph modeling and human-readable
-graph export. Within that scope, the current version provides:
+FlowDependency v0.3.0 is focused on dependency graph modeling, structural
+metrics, and human-readable graph export. Within that scope, the current
+version provides:
 
 - node and edge graph primitives
 - required, optional, all, any, and quorum wait policies
@@ -18,6 +19,8 @@ graph export. Within that scope, the current version provides:
 - graph diff
 - variant comparison
 - weighted critical path analysis
+- structural graph metrics for sources, sinks, fan-in/fan-out, required edges,
+  optional edges, and density
 - variant filtering for A/B/C-style flow plans
 - JSON import/export
 - Mermaid flowchart export
@@ -28,7 +31,7 @@ graph export. Within that scope, the current version provides:
 ## Scope
 
 FlowDependency models flow structure. It does not execute tasks, persist run
-history, collect metrics, or schedule containers.
+history, collect runtime telemetry, or schedule containers.
 
 Those responsibilities belong to other FlowBrigade Toolkit components:
 
@@ -83,6 +86,14 @@ Critical path analysis can use edge durations or weights:
 ```nim
 graph.addEdge(flowEdge("extract-load", "extract", "load", durationMillis = 320))
 let path = graph.criticalPath()
+```
+
+Structural metrics can be used by reporting layers:
+
+```nim
+let metrics = graph.graphMetrics()
+echo metrics.maxFanIn
+echo metrics.density
 ```
 
 Mermaid and DOT export can be used to render the graph for humans:
