@@ -6,3 +6,4 @@ include ./test_metrics
 include ./test_diff
 include ./test_analysis
 include ./test_dot
+include ./test_memory_model
