@@ -7,7 +7,7 @@ It is part of the **FlowBrigade Toolkit**.
 
 ## Status
 
-FlowDependency v0.3.0 is focused on dependency graph modeling, structural
+FlowDependency v0.3.1 is focused on dependency graph modeling, structural
 metrics, and human-readable graph export. Within that scope, the current
 version provides:
 
@@ -113,7 +113,11 @@ FlowDependency only depends on Nim's standard library.
 nimble test
 nimble examples
 nimble bench
+nimble leak
 ```
+
+`nimble leak` builds the ARC release leak probe and runs it under Valgrind,
+failing on definite or indirect leaks.
 
 ## Intellectual Property Notes
 
